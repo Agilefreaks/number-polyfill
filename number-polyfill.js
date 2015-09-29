@@ -27,26 +27,18 @@ HTML5 Number polyfill | Jonathan Stipe | https://github.com/jonstipe/number-poly
         return $(this);
       };
       numberPolyfill = function(elem) {
-        var $fieldContainer, MutationObserver, attrObserver, halfHeight;
+        var $fieldContainer, MutationObserver, attrObserver;
         this.elem = $(elem);
-        if (!(this.elem.is(":root *") && this.elem.height() > 0)) {
-          throw new Error("Element must be in DOM and displayed so that its height can be measured.");
-        }
-        halfHeight = (this.elem.outerHeight() / 2) + 'px';
         this.upBtn = $('<div/>', {
-          "class": 'number-spin-btn number-spin-btn-up',
-          style: "height: " + halfHeight
+          "class": 'number-spin-btn number-spin-btn-up'
         });
         this.downBtn = $('<div/>', {
-          "class": 'number-spin-btn number-spin-btn-down',
-          style: "height: " + halfHeight
+          "class": 'number-spin-btn number-spin-btn-down'
         });
         this.btnContainer = $('<div/>', {
           "class": 'number-spin-btn-container'
         });
-        $fieldContainer = $('<span/>', {
-          style: "white-space: nowrap"
-        });
+        $fieldContainer = $('<span/>');
         this.upBtn.appendTo(this.btnContainer);
         this.downBtn.appendTo(this.btnContainer);
         this.elem.wrap($fieldContainer);
@@ -85,7 +77,6 @@ HTML5 Number polyfill | Jonathan Stipe | https://github.com/jonstipe/number-poly
           p: this,
           func: "decrement"
         }, numberPolyfill.elemBtnMousedownHandler);
-        this.elem.css("textAlign", 'right');
         this.attrMutationHandler("class");
         if ((typeof WebKitMutationObserver !== "undefined" && WebKitMutationObserver !== null) || (typeof MutationObserver !== "undefined" && MutationObserver !== null)) {
           if ((typeof WebKitMutationObserver !== "undefined" && WebKitMutationObserver !== null) && (typeof MutationObserver === "undefined" || MutationObserver === null)) {

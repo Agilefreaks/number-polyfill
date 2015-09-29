@@ -26,13 +26,10 @@ HTML5 Number polyfill | Jonathan Stipe | https://github.com/jonstipe/number-poly
 
     numberPolyfill = (elem)->
       @elem = $(elem)
-      unless @elem.is(":root *") && @elem.height() > 0
-        throw new Error("Element must be in DOM and displayed so that its height can be measured.")
-      halfHeight = (@elem.outerHeight() / 2) + 'px'
-      @upBtn = $ '<div/>', { class: 'number-spin-btn number-spin-btn-up', style: "height: #{halfHeight}" }
-      @downBtn = $ '<div/>', { class: 'number-spin-btn number-spin-btn-down', style: "height: #{halfHeight}" }
+      @upBtn = $ '<div/>', { class: 'number-spin-btn number-spin-btn-up' }
+      @downBtn = $ '<div/>', { class: 'number-spin-btn number-spin-btn-down' }
       @btnContainer = $ '<div/>', { class: 'number-spin-btn-container' }
-      $fieldContainer = $ '<span/>', { style: "white-space: nowrap" }
+      $fieldContainer = $ '<span/>'
       @upBtn.appendTo @btnContainer
       @downBtn.appendTo @btnContainer
       @elem.wrap($fieldContainer)
@@ -59,7 +56,6 @@ HTML5 Number polyfill | Jonathan Stipe | https://github.com/jonstipe/number-poly
       @upBtn.on "mousedown", { p: @, func: "increment" }, numberPolyfill.elemBtnMousedownHandler
       @downBtn.on "mousedown", { p: @, func: "decrement" }, numberPolyfill.elemBtnMousedownHandler
 
-      @elem.css "textAlign", 'right'
       @attrMutationHandler("class")
 
       if (WebKitMutationObserver? || MutationObserver?)
